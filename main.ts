@@ -1,7 +1,7 @@
 let times = 0
 let count = 0
 input.onButtonPressed(Button.A, function () {
-    times = 2
+    times = pin()
     y_equals_x(times)
 })
 function y_equals_x (num: number) {
@@ -15,3 +15,22 @@ function y_equals_x (num: number) {
         }
     }
 }
+function pin () {
+    while (true) {
+        if (input.pinIsPressed(TouchPin.P0)) {
+            return 1
+        } else {
+            if (input.pinIsPressed(TouchPin.P1)) {
+                return 2
+            } else {
+                if (input.pinIsPressed(TouchPin.P2)) {
+                    return 3
+                }
+            }
+        }
+    }
+}
+basic.forever(function () {
+    serial.writeValue("Celcius", input.temperature())
+    basic.pause(1000)
+})
